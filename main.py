@@ -140,8 +140,8 @@ def predict(test_img):
 print("predict images ....")
 
 #lacal test images
-test_image1 = cv2.imread(os.path.join("TestImages",'messi.jpg')
-test_image2 = cv2.imread(os.path.join("TestImages",'Ronaldo.jpg')
+test_image1 = cv2.imread(os.path.join("TestImages",'messi.jpg'))
+test_image2 = cv2.imread(os.path.join("TestImages",'Ronaldo.jpg'))
 
 #perform a prediction
 predicted_img1 = predict(test_image1)
