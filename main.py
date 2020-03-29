@@ -52,7 +52,6 @@ def prepare_training_data(image_folder_path):
 
         #remove letter s from the directory name will give a label
         label = int(dir.replace("s", ""))
-
         subject_dir_path = image_folder_path + "/" + dir  #e.g. ~/s1
 
         #get all the images name in the subject directory
@@ -62,13 +61,17 @@ def prepare_training_data(image_folder_path):
             #first ignore system files like .ds_Store
             if image_name.startswith("."):
                 continue
-
+            
             #build image path
             image_path = subject_dir_path + "/" + image_name
-
+            
+            print(image_path)
             #read the image and display an image window to show the pic
             image = cv2.imread(image_path)
-            cv2.imshow("Training on image ...", cv2.resize(image, (400, 500)))
+            
+
+            image = cv2.resize(image, (400, 500))
+            cv2.imshow('Training on image ...', image)
             cv2.waitkey(100)
 
             #pass the image to detect face fun
