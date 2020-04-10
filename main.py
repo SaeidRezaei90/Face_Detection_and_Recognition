@@ -19,7 +19,7 @@ def detect_face(img):
         "opencv-files/lbpcascade_frontalface.xml")
     # result is a list of faces(rect parameters)
     faces = face_cascade.detectMultiScale(
-        gray_image, scaleFactor=1.2, minNeighbours=5)
+        gray_image, scaleFactor=1.2, minNeighbors=5)
 
     # if no faces are detected then return original image, we return two None value because detect face fun returns two values
     if (len(faces) == 0):
@@ -38,6 +38,7 @@ def detect_face(img):
 # The goal of this fun is to prepare data, This function will read all person's images detect face from each image and will return two same size lists of faces and labels
 def prepare_training_data(image_folder_path):
     # get all the directories inside the path
+    
     dirs = os.listdir(image_folder_path)
 
     # define 2 lists to hold all subject faces and their corresponding label
@@ -65,23 +66,26 @@ def prepare_training_data(image_folder_path):
             # build image path
             image_path = subject_dir_path + "/" + image_name
             
-            print(image_path)
+          
             # read the image and display an image window to show the pic
             image = cv2.imread(image_path)
-            
 
             image = cv2.resize(image, (400, 500))
-            cv2.imshow('Training on image ...', image)
-            cv2.waitkey(100)
+            print(image_path)
 
+            cv2.imshow('Training on image ...', image)
+            cv2.waitKey(100)
+            
             # pass the image to detect face fun
             face, rect = detect_face(image)
 
+           
             # we should ignore faces that are not detected
             if face is not None:
                 # add face to the faces list and label to the label list
                 faces.append(face)
                 labels.append(label)
+    
 
     cv2.destroyAllWindows()
     cv2.waitKey(1)
@@ -143,8 +147,10 @@ def predict(test_img):
 print("predict images ....")
 
 # lacal test images
-test_image1 = cv2.imread(os.path.join("TestImages",'messi.jpg'))
-test_image2 = cv2.imread(os.path.join("TestImages",'Ronaldo.jpg'))
+#test_image1 = cv2.imread(os.path.join("TestImages",'messi.jpg'))
+test_image1 = cv2.imread('TestImages/messi.jpg')
+test_image1 = cv2.imread('TestImages/Ronaldo.jpg')
+#test_image2 = cv2.imread(os.path.join("TestImages",'Ronaldo.jpg'))
 
 # perform a prediction
 predicted_img1 = predict(test_image1)
@@ -161,3 +167,4 @@ cv2.destroyAllWindows
 
 cv2.waitKey(1)
 cv2.destroyAllWindows
+
